@@ -9,9 +9,17 @@ public class RegularMessage implements Serializable {
 
     public int source;
 
-    public RegularMessage(Integer seqNumber,Integer localSeqNumber, Object message, int source) {
+    public String table;
+
+    public String function;
+
+    public Object input;
+
+    public RegularMessage(Integer seqNumber,Integer localSeqNumber, String table, String function, Object input, int source) {
         this.seqNumber = seqNumber;
-        this.message = message;
+        this.table = table;
+        this.function = function;
+        this.input = input;
         this.localSeqNumber = localSeqNumber;
         this.source = source;
     }

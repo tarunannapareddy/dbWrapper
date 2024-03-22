@@ -19,24 +19,34 @@ public final class Execute {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string tag = 1;</code>
+     * <code>string table = 1;</code>
      */
-    java.lang.String getTag();
+    java.lang.String getTable();
     /**
-     * <code>string tag = 1;</code>
+     * <code>string table = 1;</code>
      */
     com.google.protobuf.ByteString
-        getTagBytes();
+        getTableBytes();
 
     /**
-     * <code>string query_request = 2;</code>
+     * <code>string function = 2;</code>
      */
-    java.lang.String getQueryRequest();
+    java.lang.String getFunction();
     /**
-     * <code>string query_request = 2;</code>
+     * <code>string function = 2;</code>
      */
     com.google.protobuf.ByteString
-        getQueryRequestBytes();
+        getFunctionBytes();
+
+    /**
+     * <code>string input = 3;</code>
+     */
+    java.lang.String getInput();
+    /**
+     * <code>string input = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getInputBytes();
   }
   /**
    * Protobuf type {@code dbservice.QueryRequest}
@@ -51,8 +61,9 @@ public final class Execute {
       super(builder);
     }
     private QueryRequest() {
-      tag_ = "";
-      queryRequest_ = "";
+      table_ = "";
+      function_ = "";
+      input_ = "";
     }
 
     @java.lang.Override
@@ -82,13 +93,19 @@ public final class Execute {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              tag_ = s;
+              table_ = s;
               break;
             }
             case 18: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              queryRequest_ = s;
+              function_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              input_ = s;
               break;
             }
             default: {
@@ -123,68 +140,102 @@ public final class Execute {
               dbservice.Execute.QueryRequest.class, dbservice.Execute.QueryRequest.Builder.class);
     }
 
-    public static final int TAG_FIELD_NUMBER = 1;
-    private volatile java.lang.Object tag_;
+    public static final int TABLE_FIELD_NUMBER = 1;
+    private volatile java.lang.Object table_;
     /**
-     * <code>string tag = 1;</code>
+     * <code>string table = 1;</code>
      */
-    public java.lang.String getTag() {
-      java.lang.Object ref = tag_;
+    public java.lang.String getTable() {
+      java.lang.Object ref = table_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        tag_ = s;
+        table_ = s;
         return s;
       }
     }
     /**
-     * <code>string tag = 1;</code>
+     * <code>string table = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getTagBytes() {
-      java.lang.Object ref = tag_;
+        getTableBytes() {
+      java.lang.Object ref = table_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        tag_ = b;
+        table_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
 
-    public static final int QUERY_REQUEST_FIELD_NUMBER = 2;
-    private volatile java.lang.Object queryRequest_;
+    public static final int FUNCTION_FIELD_NUMBER = 2;
+    private volatile java.lang.Object function_;
     /**
-     * <code>string query_request = 2;</code>
+     * <code>string function = 2;</code>
      */
-    public java.lang.String getQueryRequest() {
-      java.lang.Object ref = queryRequest_;
+    public java.lang.String getFunction() {
+      java.lang.Object ref = function_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        queryRequest_ = s;
+        function_ = s;
         return s;
       }
     }
     /**
-     * <code>string query_request = 2;</code>
+     * <code>string function = 2;</code>
      */
     public com.google.protobuf.ByteString
-        getQueryRequestBytes() {
-      java.lang.Object ref = queryRequest_;
+        getFunctionBytes() {
+      java.lang.Object ref = function_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        queryRequest_ = b;
+        function_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int INPUT_FIELD_NUMBER = 3;
+    private volatile java.lang.Object input_;
+    /**
+     * <code>string input = 3;</code>
+     */
+    public java.lang.String getInput() {
+      java.lang.Object ref = input_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        input_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string input = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getInputBytes() {
+      java.lang.Object ref = input_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        input_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -205,11 +256,14 @@ public final class Execute {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getTagBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, tag_);
+      if (!getTableBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, table_);
       }
-      if (!getQueryRequestBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, queryRequest_);
+      if (!getFunctionBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, function_);
+      }
+      if (!getInputBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, input_);
       }
       unknownFields.writeTo(output);
     }
@@ -220,11 +274,14 @@ public final class Execute {
       if (size != -1) return size;
 
       size = 0;
-      if (!getTagBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, tag_);
+      if (!getTableBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, table_);
       }
-      if (!getQueryRequestBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, queryRequest_);
+      if (!getFunctionBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, function_);
+      }
+      if (!getInputBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, input_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -242,10 +299,12 @@ public final class Execute {
       dbservice.Execute.QueryRequest other = (dbservice.Execute.QueryRequest) obj;
 
       boolean result = true;
-      result = result && getTag()
-          .equals(other.getTag());
-      result = result && getQueryRequest()
-          .equals(other.getQueryRequest());
+      result = result && getTable()
+          .equals(other.getTable());
+      result = result && getFunction()
+          .equals(other.getFunction());
+      result = result && getInput()
+          .equals(other.getInput());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -257,10 +316,12 @@ public final class Execute {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + TAG_FIELD_NUMBER;
-      hash = (53 * hash) + getTag().hashCode();
-      hash = (37 * hash) + QUERY_REQUEST_FIELD_NUMBER;
-      hash = (53 * hash) + getQueryRequest().hashCode();
+      hash = (37 * hash) + TABLE_FIELD_NUMBER;
+      hash = (53 * hash) + getTable().hashCode();
+      hash = (37 * hash) + FUNCTION_FIELD_NUMBER;
+      hash = (53 * hash) + getFunction().hashCode();
+      hash = (37 * hash) + INPUT_FIELD_NUMBER;
+      hash = (53 * hash) + getInput().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -394,9 +455,11 @@ public final class Execute {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        tag_ = "";
+        table_ = "";
 
-        queryRequest_ = "";
+        function_ = "";
+
+        input_ = "";
 
         return this;
       }
@@ -424,8 +487,9 @@ public final class Execute {
       @java.lang.Override
       public dbservice.Execute.QueryRequest buildPartial() {
         dbservice.Execute.QueryRequest result = new dbservice.Execute.QueryRequest(this);
-        result.tag_ = tag_;
-        result.queryRequest_ = queryRequest_;
+        result.table_ = table_;
+        result.function_ = function_;
+        result.input_ = input_;
         onBuilt();
         return result;
       }
@@ -474,12 +538,16 @@ public final class Execute {
 
       public Builder mergeFrom(dbservice.Execute.QueryRequest other) {
         if (other == dbservice.Execute.QueryRequest.getDefaultInstance()) return this;
-        if (!other.getTag().isEmpty()) {
-          tag_ = other.tag_;
+        if (!other.getTable().isEmpty()) {
+          table_ = other.table_;
           onChanged();
         }
-        if (!other.getQueryRequest().isEmpty()) {
-          queryRequest_ = other.queryRequest_;
+        if (!other.getFunction().isEmpty()) {
+          function_ = other.function_;
+          onChanged();
+        }
+        if (!other.getInput().isEmpty()) {
+          input_ = other.input_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -511,140 +579,209 @@ public final class Execute {
         return this;
       }
 
-      private java.lang.Object tag_ = "";
+      private java.lang.Object table_ = "";
       /**
-       * <code>string tag = 1;</code>
+       * <code>string table = 1;</code>
        */
-      public java.lang.String getTag() {
-        java.lang.Object ref = tag_;
+      public java.lang.String getTable() {
+        java.lang.Object ref = table_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          tag_ = s;
+          table_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string tag = 1;</code>
+       * <code>string table = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getTagBytes() {
-        java.lang.Object ref = tag_;
+          getTableBytes() {
+        java.lang.Object ref = table_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          tag_ = b;
+          table_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string tag = 1;</code>
+       * <code>string table = 1;</code>
        */
-      public Builder setTag(
+      public Builder setTable(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        tag_ = value;
+        table_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string tag = 1;</code>
+       * <code>string table = 1;</code>
        */
-      public Builder clearTag() {
+      public Builder clearTable() {
         
-        tag_ = getDefaultInstance().getTag();
+        table_ = getDefaultInstance().getTable();
         onChanged();
         return this;
       }
       /**
-       * <code>string tag = 1;</code>
+       * <code>string table = 1;</code>
        */
-      public Builder setTagBytes(
+      public Builder setTableBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        tag_ = value;
+        table_ = value;
         onChanged();
         return this;
       }
 
-      private java.lang.Object queryRequest_ = "";
+      private java.lang.Object function_ = "";
       /**
-       * <code>string query_request = 2;</code>
+       * <code>string function = 2;</code>
        */
-      public java.lang.String getQueryRequest() {
-        java.lang.Object ref = queryRequest_;
+      public java.lang.String getFunction() {
+        java.lang.Object ref = function_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          queryRequest_ = s;
+          function_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string query_request = 2;</code>
+       * <code>string function = 2;</code>
        */
       public com.google.protobuf.ByteString
-          getQueryRequestBytes() {
-        java.lang.Object ref = queryRequest_;
+          getFunctionBytes() {
+        java.lang.Object ref = function_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          queryRequest_ = b;
+          function_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string query_request = 2;</code>
+       * <code>string function = 2;</code>
        */
-      public Builder setQueryRequest(
+      public Builder setFunction(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        queryRequest_ = value;
+        function_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string query_request = 2;</code>
+       * <code>string function = 2;</code>
        */
-      public Builder clearQueryRequest() {
+      public Builder clearFunction() {
         
-        queryRequest_ = getDefaultInstance().getQueryRequest();
+        function_ = getDefaultInstance().getFunction();
         onChanged();
         return this;
       }
       /**
-       * <code>string query_request = 2;</code>
+       * <code>string function = 2;</code>
        */
-      public Builder setQueryRequestBytes(
+      public Builder setFunctionBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        queryRequest_ = value;
+        function_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object input_ = "";
+      /**
+       * <code>string input = 3;</code>
+       */
+      public java.lang.String getInput() {
+        java.lang.Object ref = input_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          input_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string input = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getInputBytes() {
+        java.lang.Object ref = input_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          input_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string input = 3;</code>
+       */
+      public Builder setInput(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        input_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string input = 3;</code>
+       */
+      public Builder clearInput() {
+        
+        input_ = getDefaultInstance().getInput();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string input = 3;</code>
+       */
+      public Builder setInputBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        input_ = value;
         onChanged();
         return this;
       }
@@ -1270,11 +1407,12 @@ public final class Execute {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rexecute.proto\022\tdbservice\"2\n\014QueryReque" +
-      "st\022\013\n\003tag\030\001 \001(\t\022\025\n\rquery_request\030\002 \001(\t\"#" +
-      "\n\017ExecuteResponse\022\020\n\010response\030\001 \001(\t2K\n\tD" +
-      "BService\022>\n\007execute\022\027.dbservice.QueryReq" +
-      "uest\032\032.dbservice.ExecuteResponseb\006proto3"
+      "\n\rexecute.proto\022\tdbservice\">\n\014QueryReque" +
+      "st\022\r\n\005table\030\001 \001(\t\022\020\n\010function\030\002 \001(\t\022\r\n\005i" +
+      "nput\030\003 \001(\t\"#\n\017ExecuteResponse\022\020\n\010respons" +
+      "e\030\001 \001(\t2K\n\tDBService\022>\n\007execute\022\027.dbserv" +
+      "ice.QueryRequest\032\032.dbservice.ExecuteResp" +
+      "onseb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1293,7 +1431,7 @@ public final class Execute {
     internal_static_dbservice_QueryRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_dbservice_QueryRequest_descriptor,
-        new java.lang.String[] { "Tag", "QueryRequest", });
+        new java.lang.String[] { "Table", "Function", "Input", });
     internal_static_dbservice_ExecuteResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_dbservice_ExecuteResponse_fieldAccessorTable = new

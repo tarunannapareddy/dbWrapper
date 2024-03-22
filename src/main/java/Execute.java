@@ -12,7 +12,7 @@ public class Execute extends DBServiceGrpc.DBServiceImplBase {
 
     public void execute(dbservice.Execute.QueryRequest request,
                         io.grpc.stub.StreamObserver<dbservice.Execute.ExecuteResponse> responseObserver) {
-        RegularMessage regularMessage = new RegularMessage( null, dbState.local_seq, request.getQueryRequest(), port);
+        RegularMessage regularMessage = new RegularMessage( null, dbState.local_seq, request.getTable(), request.getFunction(), request.getInput(), port);
         int state = dbState.local_seq;
         dbState.queryResponse.put(dbState.local_seq, null);
         dbState.local_seq++;
@@ -21,7 +21,7 @@ public class Execute extends DBServiceGrpc.DBServiceImplBase {
         while(response == null){
             response = dbState.queryResponse.get(state);
             try {
-                Thread.sleep(100);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

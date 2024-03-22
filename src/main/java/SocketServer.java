@@ -46,7 +46,8 @@ public class SocketServer extends Thread{
                     TokenMessage token = (TokenMessage) dataMap.get("message");
                     Map<String, Object> reply = new HashMap<>();
                     reply.put("type", "ack");
-                    if(token.sender_port != port) {
+                    reply.put("message", port);
+                    if(token.sender_port != port  || dbState.ports.length ==1) {
                         socketClient.sendData("localhost", token.sender_port, reply);
                     }
                     while (dbState.requestQueue.size() > 0) {
@@ -83,9 +84,9 @@ public class SocketServer extends Thread{
                     dbState.nextTokenMap = dataMap;
                     dbState.nextPort = dbState.ports[(index + 1) % dbState.ports.length];
                     socketClient.sendData("localhost", dbState.nextPort, dataMap);
-                    demonTimer.startTimer(5000);
+                    demonTimer.startTimer(8000);
                     try {
-                        Thread.sleep(5000);
+                        Thread.sleep(4000);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
@@ -118,6 +119,7 @@ public class SocketServer extends Thread{
                     }
                 }else if(dataMap.get("type").equals("ack")){
                     demonTimer.resetTimer();
+                    System.out.println("receive token ack from the sender "+dataMap.get("message"));
                 }
                 System.out.println("dbState "+dbState.requestQueue.size()+" "+dbState.receivedQueue.size()+" "+dbState.storage.size()+" "+dbState.local_aru+" "+dbState.global_seq);
             }

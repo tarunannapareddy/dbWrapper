@@ -3,8 +3,9 @@ syntax = "proto3";
 package dbservice;
 
 message QueryRequest {
-  string tag = 1;
-  string query_request = 2;
+  string table = 1;
+  string function = 2;
+  string input = 3;
 }
 
 service DBService {
