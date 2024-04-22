@@ -4,10 +4,7 @@ import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SocketServer extends Thread{
     private final DatagramSocket socket;
@@ -23,8 +20,43 @@ public class SocketServer extends Thread{
         this.dbState = dbState;
         this.socketClient = new SocketClient();
         this.demonTimer = new DemonTimer(dbState);
+        new Thread(() -> {
+            while (true) {
+                try {
+                    Thread.sleep(5000); // Send heartbeat messages every 5 seconds
+                    sendHeartbeatMessages();
+                } catch (InterruptedException | IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
+    private void sendHeartbeatMessages() throws IOException {
+        long currentTime = System.currentTimeMillis();
+        Set<Integer> deadServers = new HashSet<>();
+
+        for (int port : dbState.liveServers) {
+            if (currentTime - dbState.lastHeartbeatTime.getOrDefault(port, 0L) > 10000) { // 10 seconds timeout
+                deadServers.add(port);
+            }
+        }
+
+
+        dbState.liveServers.removeAll(deadServers);
+        dbState.deadServers.addAll(deadServers);
+
+        HeartbeatMessage message = new HeartbeatMessage(port, currentTime);
+        Map<String, Object> dataMap = new HashMap<>();
+        dataMap.put("type", "heartbeat_message");
+        dataMap.put("message", message);
+
+        for (int otherPort : dbState.ports) {
+            if (otherPort != port) {
+                socketClient.sendData("localhost", otherPort, dataMap);
+            }
+        }
+    }
     public void run(){
         try {
             byte[] buf = new byte[2560000];
@@ -120,8 +152,31 @@ public class SocketServer extends Thread{
                 }else if(dataMap.get("type").equals("ack")){
                     demonTimer.resetTimer();
                     System.out.println("receive token ack from the sender "+dataMap.get("message"));
-                }
-                System.out.println("dbState "+dbState.requestQueue.size()+" "+dbState.receivedQueue.size()+" "+dbState.storage.size()+" "+dbState.local_aru+" "+dbState.global_seq);
+                } else if (dataMap.get("type").equals("heartbeat_message")) {
+                    HeartbeatMessage message = (HeartbeatMessage) dataMap.get("message");
+                    dbState.liveServers.add(message.senderPort);
+                    dbState.lastHeartbeatTime.put(message.senderPort, message.timestamp);
+                    dbState.deadServers.remove(message.senderPort);
+
+                    if (!dbState.liveServers.isEmpty()) {
+                        List<Integer> liveServersList = new ArrayList<>(dbState.liveServers);
+                        List<Integer> deadServersList = new ArrayList<>(dbState.deadServers);
+                        int randomIndex = new Random().nextInt(liveServersList.size());
+                        int randomPort = liveServersList.get(randomIndex);
+
+                        Map<String, Object> gossipMap = new HashMap<>();
+                        gossipMap.put("type", "gossip_message");
+                        gossipMap.put("live_servers", liveServersList);
+                        gossipMap.put("dead_servers", deadServersList);
+                        socketClient.sendData("localhost", randomPort, gossipMap);
+                    }
+                    } else if (dataMap.get("type").equals("gossip_message")) {
+                        List<Integer> receivedLiveServers = (List<Integer>) dataMap.get("live_servers");
+                        List<Integer> receivedDeadServers = (List<Integer>) dataMap.get("dead_servers");
+                        dbState.liveServers.addAll(receivedLiveServers);
+                        dbState.deadServers.addAll(receivedDeadServers);
+                    }
+                //System.out.println("dbState "+dbState.requestQueue.size()+" "+dbState.receivedQueue.size()+" "+dbState.storage.size()+" "+dbState.local_aru+" "+dbState.global_seq);
             }
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);

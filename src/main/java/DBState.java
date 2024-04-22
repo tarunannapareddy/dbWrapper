@@ -8,7 +8,11 @@ public class DBState {
     public PriorityQueue<RegularMessage> receivedQueue = new PriorityQueue<RegularMessage>((a,b)->{return a.seqNumber-b.seqNumber;});
     public int[] ports;
     public Map<Integer, RegularMessage> storage = new HashMap();
+    public Set<Integer> liveServers;
 
+    public Set<Integer> deadServers;
+
+    public Map<Integer, Long> lastHeartbeatTime = new HashMap<>();
     public Integer global_seq =-1;
 
     public Map<Integer, String> queryResponse = new HashMap();
