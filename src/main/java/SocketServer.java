@@ -84,9 +84,9 @@ public class SocketServer extends Thread{
                     dbState.nextTokenMap = dataMap;
                     dbState.nextPort = dbState.ports[(index + 1) % dbState.ports.length];
                     socketClient.sendData("localhost", dbState.nextPort, dataMap);
-                    demonTimer.startTimer(8000);
+                    demonTimer.startTimer(4000);
                     try {
-                        Thread.sleep(4000);
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
@@ -109,7 +109,7 @@ public class SocketServer extends Thread{
                         dbState.receivedQueue.add(message);
                         dbState.storage.put(message.seqNumber, message);
                     }
-                }else if(dataMap.get("type").equals("retransmission_message")){
+                } else if(dataMap.get("type").equals("retransmission_message")){
                     ReTransmissionMessage message = (ReTransmissionMessage)  dataMap.get("message");
                     if(dbState.storage.containsKey(message.global_seq)){
                         Map<String, Object> newMap = new HashMap();
@@ -121,7 +121,7 @@ public class SocketServer extends Thread{
                     demonTimer.resetTimer();
                     System.out.println("receive token ack from the sender "+dataMap.get("message"));
                 }
-                System.out.println("dbState "+dbState.requestQueue.size()+" "+dbState.receivedQueue.size()+" "+dbState.storage.size()+" "+dbState.local_aru+" "+dbState.global_seq);
+                //System.out.println("dbState "+dbState.requestQueue.size()+" "+dbState.receivedQueue.size()+" "+dbState.storage.size()+" "+dbState.local_aru+" "+dbState.global_seq);
             }
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);

@@ -36,6 +36,7 @@ public class MessageProcessor extends Thread{
             } else {
                 if (dbState.local_aru.equals(message.seqNumber - 1)) {
                     message = dbState.receivedQueue.poll();
+                    System.out.println("#######Execution started######");
                     System.out.println("executing the request" + message.seqNumber+" "+message.table+" "+message.function);
                     Map<String, Object> input = null;
                     try {
@@ -43,6 +44,7 @@ public class MessageProcessor extends Thread{
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
+                    System.out.println("#######Execution done######");
                     QueryMessage queryMessage = new QueryMessage(message.table, message.function, input);
                     String response = null;
                     try {

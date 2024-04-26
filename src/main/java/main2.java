@@ -19,7 +19,7 @@ public class main2 {
         int[] service1 = new int []{4000, 4001};
         int[] service2 = new int []{4010,4011};
         int[] ports = new int[]{4001, 4011};
-        start_service(service1, ports);
+        start_service(service2, ports);
     }
 
 }
