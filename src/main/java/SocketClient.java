@@ -18,7 +18,6 @@ public class SocketClient {
         oos.flush();
         byte[] data = baos.toByteArray();
         DatagramPacket packet = new DatagramPacket(data, data.length, InetAddress.getByName(ip), port);
-        System.out.println("sent packet"+msg.get("message"));
         socket.send(packet);
     }
 }

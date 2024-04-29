@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.SocketException;
 
 
-public class main2 {
+public class main3 {
 
     public static void start_service(int[] servicePorts, int[] ports, int seed) throws SocketException {
         DBState dbState = new DBState();
@@ -18,9 +18,10 @@ public class main2 {
     }
 
     public static void main(String[] args) throws IOException {
-        int[] service2 = new int []{4010,4002};
-        int[] ports = new int[]{4002};
-        start_service(service2, ports, 4001);
+        int[] service3 = new int []{4020,4003};
+        int[] ports = new int[]{4003};
+        start_service(service3, ports,4002);
     }
 
 }
+

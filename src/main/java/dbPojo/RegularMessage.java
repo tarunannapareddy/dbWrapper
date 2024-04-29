@@ -1,3 +1,5 @@
+package dbPojo;
+
 import java.io.Serializable;
 
 public class RegularMessage implements Serializable {

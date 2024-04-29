@@ -1,11 +1,8 @@
+import dbPojo.DBState;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 
 import java.io.IOException;
-import java.net.SocketException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.PriorityQueue;
 
 public class GRPCServer extends Thread{
 

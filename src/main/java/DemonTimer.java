@@ -1,7 +1,7 @@
+import dbPojo.DBState;
+
 import java.io.IOException;
 import java.net.SocketException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -17,14 +17,15 @@ public class DemonTimer {
         this.socketClient = new SocketClient();
     }
 
-    public void startTimer(long delay) {
+    public void startTimer(long delay, int index) {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
                 try {
-                    System.out.println("Timer expired!");
+                    System.out.println("Token ACK Timer expired!");
+                    dbState.nextPort = dbState.ports[(index + 1) % dbState.ports.length];
                     socketClient.sendData("localhost", dbState.nextPort, dbState.nextTokenMap);
-                    startTimer(5000);
+                    startTimer(5000, index);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
